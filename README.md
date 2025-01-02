@@ -1,6 +1,6 @@
-# History of Computing Interactive Learning Page
+# Interactive Learning Page Test
 
-An interactive web application that teaches users about the history of computing through chronological sections and an interactive quiz. 
+An interactive web application that teaches users about the history of computing through chronological sections and an interactive quiz.
 
 This is a scaffold for a larger project (eventually).
 
@@ -47,10 +47,6 @@ Navigate through different eras of computing history using the tabs at the top o
 
 This project uses React without a build process for simplicity. All components are defined in the main script tag of `index.html`.
 
-```
-
-
 ## License
 
 MIT License - feel free to use this for learning purposes
-```
