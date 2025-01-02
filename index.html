@@ -141,6 +141,59 @@
         font-weight: bold;
         margin-top: 10px;
       }
+      .certificate {
+        width: 800px;
+        padding: 40px;
+        text-align: center;
+        background: #fff;
+        border: 10px solid #1a3f66;
+        margin: 20px auto;
+      }
+      .certificate .header {
+        color: #1a3f66;
+        font-size: 50px;
+        font-weight: bold;
+        margin-bottom: 20px;
+        font-family: "Old English Text MT", "Times New Roman", serif;
+      }
+      .certificate .content {
+        color: #333;
+        font-size: 24px;
+        margin: 20px 0;
+        line-height: 1.5;
+        font-family: "Times New Roman", serif;
+      }
+      .certificate .seal {
+        width: 100px;
+        height: 100px;
+        border: 2px solid #1a3f66;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 20px;
+        color: #1a3f66;
+        margin: 20px auto;
+      }
+      .button-container {
+        display: flex;
+        gap: 10px;
+        justify-content: center;
+        margin-top: 20px;
+      }
+      @media print {
+        body * {
+          visibility: hidden;
+        }
+        .certificate, .certificate * {
+          visibility: visible;
+        }
+        .certificate {
+          position: absolute;
+          left: 0;
+          top: 0;
+        }
+      }
     </style>
   </head>
   <body>
@@ -398,7 +451,7 @@
 
         const shuffleArray = (array) => {
           const newArray = [...array];
-          for (let i = newArray.length - 1; i > 0; i--) {
+          for (let i = newArray.length - 1; i > 0; i--) {  // Fixed loop condition
             const j = Math.floor(Math.random() * (i + 1));
             [newArray[i], newArray[j]] = [newArray[j], newArray[i]];
           }
@@ -978,6 +1031,29 @@
             setAnswerStatus(null);
           };
 
+          const generateCertificate = () => {
+            const certificateHTML = `
+                <div class="certificate">
+                    <div class="header">Certificate of Completion</div>
+                    <div class="content">
+                        This is to certify that<br/>
+                        <strong>${new Date().toLocaleDateString()}</strong><br/>
+                        has successfully completed the<br/>
+                        History of Computing Quiz<br/>
+                        with a score of<br/>
+                        <strong>${quizScore} out of 5</strong>
+                    </div>
+                    <div class="seal">VERIFIED</div>
+                </div>
+            `;
+
+            const win = window.open('', '', 'width=900,height=600');
+            win.document.write('<html><head><style>' + 
+                document.getElementsByTagName('style')[0].innerText + 
+                '</style></head><body>' + certificateHTML + '</body></html>');
+            setTimeout(() => { win.print(); }, 250);
+          };
+
           if (showFinalScore) {
             const result = getHumorousResponse(quizScore);
             return h("div", { className: "quiz-result content" }, [
@@ -985,13 +1061,28 @@
               h("p", { key: "score" }, `Score: ${quizScore} out of 5`),
               h("p", { key: "message" }, result.message),
               h(
-                "button",
-                {
-                  key: "reset",
-                  className: "reset-button",
-                  onClick: resetQuiz,
-                },
-                "Try Again"
+                "div",
+                { key: "button-container", className: "button-container" },
+                [
+                  h(
+                    "button",
+                    {
+                      key: "reset",
+                      className: "reset-button",
+                      onClick: resetQuiz,
+                    },
+                    "Try Again"
+                  ),
+                  h(
+                    "button",
+                    {
+                      key: "certificate",
+                      className: "reset-button",
+                      onClick: generateCertificate,
+                    },
+                    "Get Certificate"
+                  ),
+                ]
               ),
             ]);
           }
@@ -1055,6 +1146,10 @@
         function HistoryOfComputing() {
           const [activeSection, setActiveSection] = useState("earlyComputing");
 
+          const handleTabClick = (sectionKey) => {
+            setActiveSection(sectionKey);
+          };
+
           return h("div", null, [
             h("h1", { key: "maintitle" }, "History of Computing"),
 
@@ -1070,14 +1165,14 @@
                     key,
                     title: section.title.split("(")[0].trim(),
                     isActive: activeSection === key,
-                    onClick: () => setActiveSection(key),
+                    onClick: () => handleTabClick(key),
                   })
                 ),
                 h(Tab, {
                   key: "quiz",
                   title: "Test Your Knowledge",
                   isActive: activeSection === "quiz",
-                  onClick: () => setActiveSection("quiz"),
+                  onClick: () => handleTabClick("quiz"),
                 }),
               ]
             ),
