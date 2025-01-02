@@ -43,4 +43,4 @@ This project uses React 18 without a build process for simplicity.
 
 ## License
 
-MIT License - Feel free to use this for learning purposes
+MIT. See the [LICENSE](LICENSE.md) file for details.
