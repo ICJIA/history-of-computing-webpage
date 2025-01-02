@@ -1,12 +1,10 @@
 # Test for a simple, single-page content-based web app.
 
-A web app that teaches users about the history of computing through comprehensive chronological sections and an interactive quiz system.
-
-This is a test scaffolding.
+A test web app that displays content and provides a quiz. A certificate can be printed at the end.
 
 The idea here is to create a simple web page with a few sections and a quiz system. At the end of the quiz, users have the option to generate a certificate of completion.
 
-The goal is to create a basic content & quiz framework for future development.
+This is a scaffold for future development.
 
 ## Demo Site
 
