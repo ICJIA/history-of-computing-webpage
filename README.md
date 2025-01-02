@@ -1,8 +1,8 @@
 # History of Computing Interactive Learning Page
 
-An interactive web application that teaches users about the history of computing through comprehensive chronological sections and an interactive quiz system.
+An (very simple) interactive web application that teaches users about the history of computing through comprehensive chronological sections and an interactive quiz system.
 
-This is test scaffolding for a project that will be built out in the future.
+This is a test scaffolding for basic interactive learning projects that will be built out in the future.
 
 ## Demo Site
 
