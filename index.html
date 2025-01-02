@@ -131,6 +131,16 @@
       .content-section ul ul {
         margin: 0;
       }
+      .feedback-correct {
+        color: #2e7d32;
+        font-weight: bold;
+        margin-top: 10px;
+      }
+      .feedback-incorrect {
+        color: #d32f2f;
+        font-weight: bold;
+        margin-top: 10px;
+      }
     </style>
   </head>
   <body>
@@ -145,7 +155,7 @@
         const ReactDOM = window.ReactDOM;
 
         // Quiz questions
-        const quizQuestions = [
+        const questionBank = [
           {
             question:
               "Which ancient mathematical tool originated in Babylon around 2400 BC?",
@@ -190,6 +200,168 @@
             options: ["IBM Watson", "GPT-3", "AlphaGo", "AlexNet"],
             correct: "AlphaGo",
           },
+          {
+            question: "What was the first computer bug?",
+            options: [
+              "Software error",
+              "Actual moth",
+              "Memory leak",
+              "Coding mistake",
+            ],
+            correct: "Actual moth",
+          },
+          {
+            question: "When was the first email sent?",
+            options: ["1965", "1971", "1983", "1991"],
+            correct: "1971",
+          },
+          {
+            question: "Which company developed the first mouse?",
+            options: ["Apple", "Microsoft", "Xerox", "IBM"],
+            correct: "Xerox",
+          },
+          {
+            question: "What was the first popular spreadsheet program?",
+            options: ["Excel", "Lotus 1-2-3", "VisiCalc", "QuattroPro"],
+            correct: "VisiCalc",
+          },
+          {
+            question: "Who is known as the father of computer science?",
+            options: [
+              "Charles Babbage",
+              "Alan Turing",
+              "John von Neumann",
+              "Ada Lovelace",
+            ],
+            correct: "Alan Turing",
+          },
+          {
+            question: "What year was the first iPhone released?",
+            options: ["2005", "2006", "2007", "2008"],
+            correct: "2007",
+          },
+          {
+            question:
+              "Which woman mathematician is often considered the first computer programmer?",
+            options: [
+              "Ada Lovelace",
+              "Grace Hopper",
+              "Hedy Lamarr",
+              "Jean Bartik",
+            ],
+            correct: "Ada Lovelace",
+          },
+          {
+            question:
+              "What device did John Napier invent that simplified multiplication?",
+            options: ["Napier's Bones", "Slide Rule", "Abacus", "Z3"],
+            correct: "Napier's Bones",
+          },
+          {
+            question: "Who developed the transistor at Bell Labs?",
+            options: [
+              "Bardeen, Brattain, and Shockley",
+              "Cartwright and Harrington",
+              "Lovelace and Babbage",
+              "Watson and Crick",
+            ],
+            correct: "Bardeen, Brattain, and Shockley",
+          },
+          {
+            question:
+              "Which operating system introduced the concept of the Recycle Bin (or Trash)?",
+            options: ["Mac OS", "Windows 95", "Linux", "OS/2"],
+            correct: "Mac OS",
+          },
+          {
+            question: "What was the first commercial microprocessor?",
+            options: ["Intel 8080", "Intel 4004", "MOS 6502", "Zilog Z80"],
+            correct: "Intel 4004",
+          },
+          {
+            question: "How many vacuum tubes did the ENIAC computer use?",
+            options: ["10,000", "17,468", "25,000", "5,000"],
+            correct: "17,468",
+          },
+          {
+            question:
+              "What was the first mass-market personal computer to feature a color display?",
+            options: ["IBM PC", "Apple II", "Commodore PET", "TRS-80"],
+            correct: "Apple II",
+          },
+          {
+            question: "Who started the GNU Project in 1983?",
+            options: [
+              "Linus Torvalds",
+              "Richard Stallman",
+              "Dennis Ritchie",
+              "Ken Thompson",
+            ],
+            correct: "Richard Stallman",
+          },
+          {
+            question:
+              "Which early computer required physical rewiring for programming?",
+            options: ["ENIAC", "UNIVAC", "ABC Computer", "Colossus"],
+            correct: "ENIAC",
+          },
+          {
+            question: "What was the clock speed of the ABC Computer?",
+            options: ["30 Hz", "45 Hz", "60 Hz", "100 Hz"],
+            correct: "60 Hz",
+          },
+          {
+            question: "How much did the Altair 8800 cost as a kit?",
+            options: ["$339", "$439", "$539", "$639"],
+            correct: "$439",
+          },
+          {
+            question: "What was the killer app for the Apple II?",
+            options: ["WordPerfect", "VisiCalc", "Lotus 1-2-3", "dBase"],
+            correct: "VisiCalc",
+          },
+          {
+            question: "How many bits per word did the ABC Computer use?",
+            options: ["32 bits", "40 bits", "50 bits", "64 bits"],
+            correct: "50 bits",
+          },
+          {
+            question:
+              "What percentage of the top 1M web servers does Linux power?",
+            options: ["86.3%", "90.3%", "93.3%", "96.3%"],
+            correct: "96.3%",
+          },
+          {
+            question: "How many transistors did the Intel 4004 have?",
+            options: ["1,000", "2,300", "3,500", "4,000"],
+            correct: "2,300",
+          },
+          {
+            question: "What was the power consumption of ENIAC?",
+            options: [
+              "100 kilowatts",
+              "150 kilowatts",
+              "200 kilowatts",
+              "250 kilowatts",
+            ],
+            correct: "150 kilowatts",
+          },
+          {
+            question: "What percentage of websites does WordPress power?",
+            options: ["33%", "43%", "53%", "63%"],
+            correct: "43%",
+          },
+          {
+            question: "When was the first release of the Linux kernel?",
+            options: ["1989", "1990", "1991", "1992"],
+            correct: "1991",
+          },
+          {
+            question:
+              "What revolutionary interface feature did the Xerox Alto introduce?",
+            options: ["Command line", "GUI", "Touch screen", "Voice control"],
+            correct: "GUI",
+          },
         ];
 
         const getHumorousResponse = (score) => {
@@ -232,6 +404,14 @@
           }
           return newArray;
         };
+
+        // 2) Create a function to select 5 random unique questions
+        function selectRandomQuestions() {
+          // Shuffle the full bank
+          const shuffledBank = shuffleArray(questionBank);
+          // Return just 5 questions
+          return shuffledBank.slice(0, 5);
+        }
 
         // Content sections
         const sections = {
@@ -509,6 +689,54 @@
                   .map((item) => `<li>${item}</li>`)
                   .join("\n")}
               </ul>
+
+              <h3>World Wide Web</h3>
+              <p><strong>Early Web (1989-1995)</strong></p>
+              <ul style="margin-bottom: 1em;">
+                ${[
+                  "First website created at CERN in 1991",
+                  "Tim Berners-Lee invented HTML and HTTP",
+                  "First web browser: WorldWideWeb",
+                  "Mosaic browser popularized the web",
+                  "Netscape Navigator dominated early market",
+                  "First search engines: Archie, Gopher, WebCrawler",
+                  "Yahoo! founded in 1994",
+                  "Amazon and eBay launched in mid-1990s",
+                ]
+                  .map((item) => `<li>${item}</li>`)
+                  .join("\n")}
+              </ul>
+
+              <p><strong>Dot-com Boom (1995-2000)</strong></p>
+              <ul style="margin-bottom: 1em;">
+                ${[
+                  "Rapid growth of internet companies",
+                  "Venture capital fueled startups",
+                  "High-profile IPOs: Netscape, Amazon, eBay",
+                  "Speculative investments led to bubble",
+                  "Burst in 2000 led to market crash",
+                  "Survivors: Google, Amazon, eBay",
+                ]
+                  .map((item) => `<li>${item}</li>`)
+                  .join("\n")}
+              </ul>
+
+              <p><strong>Web 2.0 (2004-Present)</strong></p>
+              <ul style="margin-bottom: 1em;">
+                ${[
+                  "Rise of social media: Facebook, Twitter, Instagram",
+                  "User-generated content: YouTube, Wikipedia",
+                  "AJAX enabled dynamic web applications",
+                  "Cloud computing revolutionized infrastructure",
+                  "Mobile web: iPhone and Android",
+                  "E-commerce giants: Amazon, Alibaba",
+                  "Streaming services: Netflix, Spotify",
+                  "Big data and analytics",
+                  "Internet of Things (IoT)",
+                ]
+                  .map((item) => `<li>${item}</li>`)
+                  .join("\n")}
+              </ul>
             `,
           },
         };
@@ -548,8 +776,8 @@
           const [quizScore, setQuizScore] = useState(0);
           const [showFinalScore, setShowFinalScore] = useState(false);
           const [answerStatus, setAnswerStatus] = useState(null);
-          const [shuffledQuestions] = useState(() =>
-            shuffleArray(quizQuestions)
+          const [shuffledQuestions, setShuffledQuestions] = useState(() =>
+            shuffleArray(selectRandomQuestions())
           );
 
           const handleAnswerSelect = (answer) => {
@@ -572,6 +800,8 @@
           };
 
           const resetQuiz = () => {
+            // Get new random questions when resetting
+            setShuffledQuestions(shuffleArray(selectRandomQuestions()));
             setCurrentQuestion(0);
             setQuizScore(0);
             setShowFinalScore(false);
@@ -582,11 +812,7 @@
             const result = getHumorousResponse(quizScore);
             return h("div", { className: "quiz-result content" }, [
               h("h3", { key: "title" }, result.title),
-              h(
-                "p",
-                { key: "score" },
-                `Score: ${quizScore} out of ${quizQuestions.length}`
-              ),
+              h("p", { key: "score" }, `Score: ${quizScore} out of 5`),
               h("p", { key: "message" }, result.message),
               h(
                 "button",
@@ -602,26 +828,18 @@
 
           return h("div", { className: "quiz-container" }, [
             h("div", { key: "header", className: "quiz-header" }, [
-              h("span", { key: "questionIndex" }, `Question ${currentQuestion + 1} of ${shuffledQuestions.length}`),
-              h("span", { key: "scoreLabel" }, `Score: ${quizScore}`),
+              h(
+                "span",
+                { key: "question-number" },
+                `Question ${currentQuestion + 1} of ${shuffledQuestions.length}`
+              ),
+              h("span", { key: "score" }, `Score: ${quizScore}`),
             ]),
             h(
               "div",
               { key: "question", className: "quiz-question" },
               shuffledQuestions[currentQuestion].question
             ),
-            answerStatus && !answerStatus.isCorrect
-              ? h(
-                  "div",
-                  {
-                    key: "incorrectFeedback",
-                    style: { color: "#f44336", marginBottom: "10px" },
-                  },
-                  `Incorrect answer! The correct answer is ${
-                    shuffledQuestions[currentQuestion].correct
-                  }`
-                )
-              : null,
             h(
               "div",
               { key: "options", className: "quiz-options" },
@@ -648,6 +866,19 @@
                 )
               )
             ),
+            answerStatus &&
+              h(
+                "div",
+                {
+                  key: "feedback",
+                  className: answerStatus.isCorrect
+                    ? "feedback-correct"
+                    : "feedback-incorrect",
+                },
+                answerStatus.isCorrect
+                  ? "Correct! 🎉"
+                  : `Incorrect. The correct answer is: ${shuffledQuestions[currentQuestion].correct}`
+              ),
           ]);
         }
 
