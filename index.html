@@ -543,33 +543,93 @@
               </ul>
 
               <h3>Transistor Revolution</h3>
-              // ...continue with rest of electronic era content...
+              <p><strong>The First Transistor (1947)</strong></p>
+              <ul style="margin-bottom: 1em;">
+                ${[
+                  "Invented at Bell Labs",
+                  "Created by Bardeen, Brattain, and Shockley",
+                  "Nobel Prize in Physics (1956)",
+                  "Replaced vacuum tubes",
+                  "Smaller, faster, more reliable",
+                  "Required less power",
+                  "Generated less heat",
+                  "Point-contact transistor design",
+                  "Revolutionary semiconductor device",
+                  "Led to Silicon Valley formation"
+                ].map((item) => `<li>${item}</li>`).join("\n")}
+              </ul>
+
+              <p><strong>First Transistor Computers</strong></p>
+              <ul style="margin-bottom: 1em;">
+                ${[
+                  "Manchester TC (1953)",
+                  "- First transistorized computer",
+                  "- 92 point-contact transistors",
+                  "- 125 diodes",
+                  "- 550 vacuum tubes still needed",
+                  "IBM 608 (1955)",
+                  "- First commercial transistor calculator",
+                  "- 3,000 transistors",
+                  "- No vacuum tubes",
+                  "- Multiplication in 11 milliseconds",
+                  "Philco Transac S-2000 (1957)",
+                  "- First all-transistor commercial computer",
+                  "- Surface-barrier transistors",
+                  "- 56,000 operations per second",
+                  "- Magnetic tape memory"
+                ].map((item) => `<li>${item}</li>`).join("\n")}
+              </ul>
+
+              <p><strong>Semiconductor Evolution</strong></p>
+              <ul style="margin-bottom: 1em;">
+                ${[
+                  "Silicon replaces germanium (1954)",
+                  "Texas Instruments develops silicon transistor",
+                  "Fairchild develops planar process (1959)",
+                  "Beginning of integrated circuits",
+                  "Mass production becomes possible",
+                  "Costs dramatically reduced",
+                  "Reliability greatly improved",
+                  "Led to microelectronics revolution",
+                  "Enabled modern computing age",
+                  "Moore's Law prediction (1965)"
+                ].map((item) => `<li>${item}</li>`).join("\n")}
+              </ul>
             `,
           },
           personalComputing: {
             title: "Personal Computing (1970-1990)",
             content: `
-              <h3>The Microprocessor Revolution</h3>
-              <p><strong>Intel 4004 (1971)</strong></p>
+              <h3>Early Personal Computers</h3>
+              <p><strong>Altair 8800 (1975)</strong></p>
               <ul>
                 ${[
-                  "First commercial microprocessor",
-                  "2,300 transistors",
-                  "4-bit processor",
-                  "740 KHz clock speed",
+                  "Featured on Popular Electronics cover",
+                  "Sold as kit for $439 ($2,100 in 2023)",
+                  "Led to founding of Microsoft",
+                  "Created first PC hardware standard",
+                  "Intel 8080 processor at 2 MHz",
+                  "256 bytes of memory (expandable)",
+                  "Toggle switch programming",
+                  "Shipped over 10,000 units",
                 ]
                   .map((item) => `<li>${item}</li>`)
                   .join("\n")}
               </ul>
 
-              <h3>Early Personal Computers</h3>
-              <p><strong>Altair 8800 (1975)</strong></p>
+              <p><strong>TRS-80 Model I (1977)</strong></p>
               <ul>
                 ${[
-                  "Featured on Popular Electronics",
-                  "Sold as kit for $439",
-                  "Led to founding of Microsoft",
-                  "Created first PC hardware standard",
+                  "Released by Radio Shack/Tandy",
+                  "Complete system for $599",
+                  "Z80 processor at 1.77 MHz",
+                  "4KB RAM (expandable to 48KB)",
+                  "Built-in BASIC interpreter",
+                  "Level I BASIC in 4KB ROM",
+                  "12-inch monitor included",
+                  "Optional cassette storage",
+                  "First computer sold in retail stores",
+                  "Over 200,000 units sold",
                 ]
                   .map((item) => `<li>${item}</li>`)
                   .join("\n")}
@@ -579,9 +639,64 @@
               <ul>
                 ${[
                   "First mass-market color computer",
+                  "MOS 6502 processor at 1 MHz",
+                  "4KB RAM (expandable to 48KB)",
                   "Built-in BASIC programming",
-                  "Expandable architecture",
+                  "Color graphics capability",
+                  "Game paddle/joystick ports",
+                  "Cassette storage interface",
+                  "Optional Disk II drive (1978)",
                   "Killer app: VisiCalc spreadsheet",
+                  "Production ran until 1993",
+                  "Over 6 million units sold",
+                ]
+                  .map((item) => `<li>${item}</li>`)
+                  .join("\n")}
+              </ul>
+
+              <p><strong>Commodore PET (1977)</strong></p>
+              <ul>
+                ${[
+                  "All-in-one design with monitor",
+                  "MOS 6502 processor",
+                  "4KB or 8KB RAM versions",
+                  "Built-in cassette drive",
+                  "IEEE-488 interface",
+                  "Metal case construction",
+                  "Popular in schools",
+                  "Chiclet keyboard (early models)",
+                  "Built-in green monitor",
+                  "Cost: $795 (4KB model)",
+                ]
+                  .map((item) => `<li>${item}</li>`)
+                  .join("\n")}
+              </ul>
+
+              <h3>Historic Processors</h3>
+              <p><strong>Early Microprocessors</strong></p>
+              <ul style="margin-bottom: 1em;">
+                ${[
+                  "MOS 6502 (1975):",
+                  "- Powered Apple II, Commodore 64, Atari",
+                  "- Cost only $25 vs competitors' $100+",
+                  "- 8-bit processor at 1-2 MHz",
+                  "- Used in Nintendo Entertainment System",
+                  "- Simple but efficient instruction set",
+                  "- Dominated home computer market",
+                  "Zilog Z80 (1976):",
+                  "- Enhanced Intel 8080 architecture",
+                  "- Powered Sinclair ZX Spectrum, TRS-80",
+                  "- Used in Game Boy and MSX computers",
+                  "- Popular in embedded systems",
+                  "- Still manufactured today",
+                  "- Backward compatible with 8080",
+                  "Motorola 68000 (1979):",
+                  "- 16/32-bit hybrid architecture",
+                  "- Powered Apple Macintosh, Amiga",
+                  "- Used in early Unix workstations",
+                  "- Advanced instruction set",
+                  "- Influenced RISC design",
+                  "- Key to Apple's early success",
                 ]
                   .map((item) => `<li>${item}</li>`)
                   .join("\n")}
@@ -589,12 +704,36 @@
 
               <h3>The IBM PC Era</h3>
               <p><strong>IBM PC (1981)</strong></p>
-              <ul>
+              <ul style="margin-bottom: 1em;">
                 ${[
+                  "Intel 8088 processor at 4.77 MHz",
+                  "16KB-64KB RAM standard",
                   "Open architecture design",
                   "Created PC standard",
                   "MS-DOS operating system",
+                  "Optional color graphics",
+                  "IBM BASIC included",
+                  "Cost: $1,565 to $4,500",
                   "Led to clone market",
+                  "Launched modern PC industry",
+                  "Pioneered third-party hardware market",
+                  "Established ISA bus standard",
+                ]
+                  .map((item) => `<li>${item}</li>`)
+                  .join("\n")}
+              </ul>
+
+              <p><strong>Clone Wars (1982-1986)</strong></p>
+              <ul style="margin-bottom: 1em;">
+                ${[
+                  "Compaq released first IBM clone",
+                  "Phoenix created BIOS clone legally",
+                  "Prices dropped dramatically",
+                  "AMD became second source for chips",
+                  "Created standardized PC market",
+                  "Rapid industry expansion",
+                  "IBM lost market control",
+                  "Microsoft gained influence",
                 ]
                   .map((item) => `<li>${item}</li>`)
                   .join("\n")}
@@ -602,24 +741,55 @@
 
               <h3>GUI Revolution</h3>
               <p><strong>Xerox Alto (1973)</strong></p>
-              <ul>
+              <ul style="margin-bottom: 1em;">
                 ${[
                   "First GUI interface",
                   "Mouse-driven interface",
+                  "WYSIWYG text editing",
+                  "Bitmap display",
                   "Ethernet networking",
+                  "Object-oriented programming",
                   "Influenced Apple and Microsoft",
+                  "Cost: $32,000 per unit",
+                  "Never commercially released",
+                  "Used at PARC, universities",
+                ]
+                  .map((item) => `<li>${item}</li>`)
+                  .join("\n")}
+              </ul>
+
+              <p><strong>Apple Lisa (1983)</strong></p>
+              <ul style="margin-bottom: 1em;">
+                ${[
+                  "First commercial GUI computer",
+                  "Motorola 68000 processor",
+                  "1MB RAM",
+                  "5MB hard drive",
+                  "Cost: $9,995",
+                  "Protected memory",
+                  "Cooperative multitasking",
+                  "Integrated office suite",
+                  "Commercial failure",
+                  "Led to Macintosh development",
                 ]
                   .map((item) => `<li>${item}</li>`)
                   .join("\n")}
               </ul>
 
               <p><strong>Apple Macintosh (1984)</strong></p>
-              <ul>
+              <ul style="margin-bottom: 1em;">
                 ${[
                   "First successful GUI computer",
+                  "68000 processor at 8 MHz",
                   "128K memory",
                   "Built-in display",
+                  "3.5-inch floppy drive",
                   "Revolutionary marketing",
+                  "QuickDraw graphics library",
+                  "Cost: $2,495",
+                  "MacWrite and MacPaint included",
+                  "Created desktop publishing market",
+                  "Established modern GUI paradigms",
                 ]
                   .map((item) => `<li>${item}</li>`)
                   .join("\n")}
