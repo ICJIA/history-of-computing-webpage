@@ -4,52 +4,13 @@ A test web app that displays content and provides a quiz.
 
 The idea here is to create a simple web page with a few sections and a quiz system. At the end of the quiz, users have the option to generate a certificate of completion.
 
-This is a test scaffold for future development.
+This is a test scaffold for future development. The project is built using React 18 without a build process. All components and content are defined in the main script tag of `index.html`. This file is the entry point of the webpage and can be served as normal or launched locally in a modern web browser.
 
 ## Demo Site
 
 https://history-of-computing.netlify.app/
 
-## Features
-
-- **Detailed Historical Sections:**
-
-  - Early Computing (Pre-1940)
-
-    - Ancient Computing Tools
-    - Mathematical Foundations
-    - Early Mechanical Calculators
-
-  - Electronic Computing Era (1940-1960)
-
-    - Theoretical Foundations
-    - Early Electronic Computers
-    - ENIAC Era
-    - Transistor Revolution
-
-  - Personal Computing (1970-1990)
-
-    - Early Personal Computers
-    - Historic Processors
-    - IBM PC Era
-    - GUI Revolution
-
-  - Internet Age (1990-Present)
-    - Open Source Movement
-    - World Wide Web
-    - Dot-com Era
-    - Web 2.0
-
-- **Enhanced Quiz System:**
-  - 30+ curated questions
-  - Randomized question selection
-  - Immediate visual feedback
-  - Score tracking
-  - Humorous performance ratings
-  - Reset functionality
-  - Mobile-responsive design
-
-## Technologies Used
+## Tooling
 
 - HTML5
 - CSS3 with Flexbox
