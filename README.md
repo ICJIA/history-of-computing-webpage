@@ -2,26 +2,36 @@
 
 An interactive web application that teaches users about the history of computing through comprehensive chronological sections and an interactive quiz system.
 
+This is test scaffolding for a project that will be built out in the future.
+
+## Demo Site
+
+https://history-of-computing.netlify.app/
+
 ## Features
 
 - **Detailed Historical Sections:**
+
   - Early Computing (Pre-1940)
+
     - Ancient Computing Tools
     - Mathematical Foundations
     - Early Mechanical Calculators
-  
+
   - Electronic Computing Era (1940-1960)
+
     - Theoretical Foundations
     - Early Electronic Computers
     - ENIAC Era
     - Transistor Revolution
-  
+
   - Personal Computing (1970-1990)
+
     - Early Personal Computers
     - Historic Processors
     - IBM PC Era
     - GUI Revolution
-  
+
   - Internet Age (1990-Present)
     - Open Source Movement
     - World Wide Web
@@ -48,6 +58,7 @@ An interactive web application that teaches users about the history of computing
 ## Getting Started
 
 1. Clone the repository:
+
 ```bash
 git clone https://github.com/yourusername/history-of-computing-webpage.git
 ```
