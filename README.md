@@ -33,9 +33,8 @@ git clone https://github.com/yourusername/history-of-computing-webpage.git
 
 ## Development
 
-This project uses React 18 without a build process for simplicity. All components and content are defined in the main script tag of `index.html`.
+This project uses React 18 without a build process for simplicity.
 
-- React 18 (No build tools version)
 - Responsive Design Principles
 - Content is structured in chronological sections
 - Quiz system uses modern React hooks
