@@ -308,6 +308,13 @@
           display: none;
         }
       }
+
+      .button-container {
+        display: flex;
+        gap: 20px;
+        justify-content: center;
+        margin-top: 30px;
+      }
     </style>
   </head>
   <body>
@@ -323,14 +330,14 @@
     </div>
 
     <script>
-      // Wait for React to load
+      // Initialize application after React is fully loaded
       window.onload = function () {
         const React = window.React;
         const { useState } = React;
-        const { createElement: h } = React;
+        const { createElement: h } = React; // Alias createElement to 'h' for brevity
         const ReactDOM = window.ReactDOM;
 
-        // Quiz questions
+        // Quiz question bank - Contains all possible questions and their answers
         const questionBank = [
           {
             question:
@@ -540,6 +547,11 @@
           },
         ];
 
+        /**
+         * Returns a humorous response based on the quiz score
+         * @param {number} score - The quiz score (0-5)
+         * @returns {Object} - Contains title and message for the given score range
+         */
         const getHumorousResponse = (score) => {
           const responses = [
             {
@@ -572,25 +584,52 @@
           );
         };
 
+        /**
+         * Randomly shuffles array elements using Fisher-Yates algorithm
+         * @param {Array} array - Array to shuffle
+         * @returns {Array} - New shuffled array
+         */
         const shuffleArray = (array) => {
           const newArray = [...array];
           for (let i = newArray.length - 1; i > 0; i--) {
-            // Fixed loop condition
             const j = Math.floor(Math.random() * (i + 1));
             [newArray[i], newArray[j]] = [newArray[j], newArray[i]];
           }
           return newArray;
         };
 
-        // 2) Create a function to select 5 random unique questions
+        /**
+         * Selects 5 unique random questions from the question bank
+         * Uses reservoir sampling to ensure uniform random selection
+         * @returns {Array} - Array of 5 randomly selected questions
+         */
         function selectRandomQuestions() {
-          // Shuffle the full bank
-          const shuffledBank = shuffleArray(questionBank);
-          // Return just 5 questions
-          return shuffledBank.slice(0, 5);
+          // Verify we have enough questions
+          if (questionBank.length < 5) {
+            console.error('Question bank must contain at least 5 questions');
+            return [];
+          }
+          
+          // Create a copy of the question bank to avoid modifying original
+          const availableQuestions = [...questionBank];
+          
+          // Initialize result array
+          const selectedQuestions = [];
+          
+          // Select 5 random questions
+          for (let i = 0; i < 5; i++) {
+            // Get random index from remaining questions
+            const randomIndex = Math.floor(Math.random() * availableQuestions.length);
+            
+            // Add question to selected questions and remove from available pool
+            selectedQuestions.push(availableQuestions[randomIndex]);
+            availableQuestions.splice(randomIndex, 1);
+          }
+          
+          return selectedQuestions;
         }
 
-        // Content sections
+        // Content sections for different historical periods
         const sections = {
           earlyComputing: {
             title: "Early Computing (Pre-1940)",
@@ -1094,7 +1133,13 @@
           },
         };
 
-        // Components
+        /**
+         * Tab component - Renders a single navigation tab
+         * @param {Object} props - Component props
+         * @param {string} props.title - Tab title
+         * @param {boolean} props.isActive - Whether tab is currently active
+         * @param {Function} props.onClick - Click handler
+         */
         function Tab({ title, isActive, onClick }) {
           return h(
             "button",
@@ -1106,6 +1151,11 @@
           );
         }
 
+        /**
+         * Content component - Renders the main content area
+         * @param {Object} props - Component props
+         * @param {Object} props.section - Section data to display
+         */
         function Content({ section }) {
           return h("div", { className: "content" }, [
             h(
@@ -1124,20 +1174,34 @@
           ]);
         }
 
+        /**
+         * Quiz component - Handles quiz logic and rendering
+         * Manages:
+         * - Question progression
+         * - Score tracking
+         * - Answer validation
+         * - Certificate generation
+         */
         function Quiz() {
+          // State management for quiz
           const [currentQuestion, setCurrentQuestion] = useState(0);
           const [quizScore, setQuizScore] = useState(0);
           const [showFinalScore, setShowFinalScore] = useState(false);
           const [answerStatus, setAnswerStatus] = useState(null);
           const [shuffledQuestions, setShuffledQuestions] = useState(() =>
-            shuffleArray(selectRandomQuestions())
+            selectRandomQuestions()
           );
 
+          /**
+           * Handles user answer selection
+           * @param {string} answer - Selected answer
+           */
           const handleAnswerSelect = (answer) => {
             const isCorrect =
               answer === shuffledQuestions[currentQuestion].correct;
             setAnswerStatus({ selected: answer, isCorrect });
 
+            // Delay to show feedback before moving to next question
             setTimeout(() => {
               if (isCorrect) {
                 setQuizScore((prev) => prev + 1);
@@ -1152,6 +1216,9 @@
             }, 1500);
           };
 
+          /**
+           * Resets quiz state for a new attempt
+           */
           const resetQuiz = () => {
             // Get new random questions when resetting
             setShuffledQuestions(shuffleArray(selectRandomQuestions()));
@@ -1161,6 +1228,21 @@
             setAnswerStatus(null);
           };
 
+          /**
+           * Generates and opens a printable certificate in a new window
+           * @description Creates a new window containing a styled certificate layout
+           * with the user's quiz score. Includes a print button and automatically
+           * copies over existing styles from the parent window.
+           * @returns {void}
+           * @example
+           * generateCertificate(); // Opens new window with certificate
+           *
+           * @fires {Window#onload} Adds print functionality after window loads
+           * @fires {Window#print} When print button is clicked
+           *
+           * @see {Quiz} Parent component where this function is used
+           * @see {quizScore} State variable containing the user's score
+           */
           const generateCertificate = () => {
             const certificateHTML = `
                 <button onclick="window.print()" class="print-button">Print Certificate</button>
@@ -1187,18 +1269,20 @@
                 "</body></html>"
             );
             win.document.close(); // This is important!
-            
+
             // Wait for window to load before trying to print
-            win.onload = function() {
+            win.onload = function () {
               // Add click handler to print button
-              win.document.querySelector('.print-button').onclick = function() {
-                win.print();
-              };
+              win.document.querySelector(".print-button").onclick =
+                function () {
+                  win.print();
+                };
               // Optional: Auto-trigger print dialog
               // win.print();
             };
           };
 
+          // Render final score screen if quiz is complete
           if (showFinalScore) {
             const result = getHumorousResponse(quizScore);
             return h("div", { className: "quiz-result content" }, [
@@ -1232,6 +1316,7 @@
             ]);
           }
 
+          // Render active quiz interface
           return h("div", { className: "quiz-container" }, [
             h("div", { key: "header", className: "quiz-header" }, [
               h(
@@ -1288,6 +1373,10 @@
           ]);
         }
 
+        /**
+         * Main application component
+         * Manages navigation and content switching between sections
+         */
         function HistoryOfComputing() {
           const [activeSection, setActiveSection] = useState("earlyComputing");
 
@@ -1331,7 +1420,7 @@
           ]);
         }
 
-        // Render the app
+        // Initialize React application
         const container = document.getElementById("root");
         const root = ReactDOM.createRoot(container);
         root.render(h(HistoryOfComputing));
