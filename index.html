@@ -17,7 +17,7 @@
 
     <style>
       body {
-        font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+        font-family: "Segoe UI", system-ui, -apple-system, sans-serif;
         margin: 0;
         padding: 40px;
         background: #f0f2f5;
@@ -270,14 +270,42 @@
         body {
           padding: 20px;
         }
-        
+
         .tabs {
           flex-direction: column;
           gap: 10px;
         }
-        
-        .content, .quiz-container {
+
+        .content,
+        .quiz-container {
           padding: 20px;
+        }
+      }
+
+      .print-button {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        padding: 12px 24px;
+        background: #3f51b5;
+        color: white;
+        border: none;
+        border-radius: 25px;
+        cursor: pointer;
+        font-size: 1.1em;
+        transition: all 0.3s ease;
+        z-index: 1000;
+      }
+
+      .print-button:hover {
+        background: #303f9f;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      }
+
+      @media print {
+        .print-button {
+          display: none;
         }
       }
     </style>
@@ -285,7 +313,11 @@
   <body>
     <div id="root"></div>
     <div class="footer">
-      <a href="https://github.com/ICJIA/history-of-computing-webpage" target="_blank" rel="noopener noreferrer">
+      <a
+        href="https://github.com/ICJIA/history-of-computing-webpage"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
         View source on GitHub
       </a>
     </div>
@@ -542,7 +574,8 @@
 
         const shuffleArray = (array) => {
           const newArray = [...array];
-          for (let i = newArray.length - 1; i > 0; i--) {  // Fixed loop condition
+          for (let i = newArray.length - 1; i > 0; i--) {
+            // Fixed loop condition
             const j = Math.floor(Math.random() * (i + 1));
             [newArray[i], newArray[j]] = [newArray[j], newArray[i]];
           }
@@ -699,8 +732,10 @@
                   "Generated less heat",
                   "Point-contact transistor design",
                   "Revolutionary semiconductor device",
-                  "Led to Silicon Valley formation"
-                ].map((item) => `<li>${item}</li>`).join("\n")}
+                  "Led to Silicon Valley formation",
+                ]
+                  .map((item) => `<li>${item}</li>`)
+                  .join("\n")}
               </ul>
 
               <p><strong>First Transistor Computers</strong></p>
@@ -720,8 +755,10 @@
                   "- First all-transistor commercial computer",
                   "- Surface-barrier transistors",
                   "- 56,000 operations per second",
-                  "- Magnetic tape memory"
-                ].map((item) => `<li>${item}</li>`).join("\n")}
+                  "- Magnetic tape memory",
+                ]
+                  .map((item) => `<li>${item}</li>`)
+                  .join("\n")}
               </ul>
 
               <p><strong>Semiconductor Evolution</strong></p>
@@ -736,8 +773,10 @@
                   "Reliability greatly improved",
                   "Led to microelectronics revolution",
                   "Enabled modern computing age",
-                  "Moore's Law prediction (1965)"
-                ].map((item) => `<li>${item}</li>`).join("\n")}
+                  "Moore's Law prediction (1965)",
+                ]
+                  .map((item) => `<li>${item}</li>`)
+                  .join("\n")}
               </ul>
             `,
           },
@@ -1124,11 +1163,12 @@
 
           const generateCertificate = () => {
             const certificateHTML = `
+                <button onclick="window.print()" class="print-button">Print Certificate</button>
                 <div class="certificate">
                     <div class="header">Certificate of Completion</div>
                     <div class="content">
                         This is to certify that<br/>
-                        <strong>${new Date().toLocaleDateString()}</strong><br/>
+                        <strong>Jane Doe</strong><br/>
                         has successfully completed the<br/>
                         History of Computing Quiz<br/>
                         with a score of<br/>
@@ -1138,11 +1178,25 @@
                 </div>
             `;
 
-            const win = window.open('', '', 'width=900,height=600');
-            win.document.write('<html><head><style>' + 
-                document.getElementsByTagName('style')[0].innerText + 
-                '</style></head><body>' + certificateHTML + '</body></html>');
-            setTimeout(() => { win.print(); }, 250);
+            const win = window.open("", "", "width=900,height=800");
+            win.document.write(
+              "<html><head><style>" +
+                document.getElementsByTagName("style")[0].innerText +
+                '</style></head><body style="margin:0;padding:20px;display:flex;justify-content:center;align-items:center;min-height:100vh;">' +
+                certificateHTML +
+                "</body></html>"
+            );
+            win.document.close(); // This is important!
+            
+            // Wait for window to load before trying to print
+            win.onload = function() {
+              // Add click handler to print button
+              win.document.querySelector('.print-button').onclick = function() {
+                win.print();
+              };
+              // Optional: Auto-trigger print dialog
+              // win.print();
+            };
           };
 
           if (showFinalScore) {
