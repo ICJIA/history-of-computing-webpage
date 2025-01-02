@@ -1,10 +1,10 @@
 # Test for a simple, single-page content-based web app.
 
-A test web app that displays content and provides a quiz. A certificate can be printed at the end.
+A test web app that displays content and provides a quiz.
 
 The idea here is to create a simple web page with a few sections and a quiz system. At the end of the quiz, users have the option to generate a certificate of completion.
 
-This is a scaffold for future development.
+This is a test scaffold for future development.
 
 ## Demo Site
 
