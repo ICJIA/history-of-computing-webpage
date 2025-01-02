@@ -1,8 +1,10 @@
-# Test scaffolding for (very) simple content-based learning project
+# Test for a simple, single-page content-based web app.
 
 A web app that teaches users about the history of computing through comprehensive chronological sections and an interactive quiz system.
 
-This is a test scaffolding. The idea here is to create a simple web page with a few sections and a quiz system. The goal is to create a basic scaffold for future use.
+This is a test scaffolding.
+
+The idea here is to create a simple web page with a few sections and a quiz system. The goal is to create a basic scaffold for future use.
 
 ## Demo Site
 
