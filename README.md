@@ -4,7 +4,9 @@ A web app that teaches users about the history of computing through comprehensiv
 
 This is a test scaffolding.
 
-The idea here is to create a simple web page with a few sections and a quiz system. The goal is to create a basic scaffold for future use.
+The idea here is to create a simple web page with a few sections and a quiz system. At the end of the quiz, users have the option to generate a certificate of completion.
+
+The goal is to create a basic content & quiz framework for future development.
 
 ## Demo Site
 
