@@ -2,7 +2,9 @@
 
 A test web app that displays several sections of historical content and provides a quiz. The quiz provides immediate feedback and generates a certificate of completion at the end.
 
-This is a test scaffold for future development. The project is built using React 18 without a build process.
+The quiz draws from a large bank of questions and randomly chooses 5 questions to display.
+
+This is a simple test scaffold for future development. The project is built using React 18 without a build process and is a work-in-progress.
 
 All components and content are defined in the main script tag of `index.html`. This file is the entry point of the webpage and can be served as normal or launched locally in a modern web browser.
 
