@@ -31,16 +31,15 @@ git clone https://github.com/yourusername/history-of-computing-webpage.git
 - Each section contains detailed historical information with categorized subsections
 - Test your knowledge using the "Test Your Knowledge" tab
 - Quiz provides immediate feedback, tracks your score, and provides an option to generate a certificate of completion.
-- Responsive design works on both desktop and mobile devices
+- Works on both desktop and mobile devices
 
 ## Development
 
 This project uses React 18 without a build process for simplicity.
 
-- Responsive Design Principles
-- Content is structured in chronological sections
 - Quiz system uses modern React hooks
-- Flexbox grid
+- CSS3 and Flexbox grid
+- Responsive Design Principles
 
 ## License
 
