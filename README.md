@@ -1,8 +1,8 @@
-# History of Computing Interactive Learning Page
+# Test scaffolding for (very) simple content-based learning project
 
-An (very simple) interactive web application that teaches users about the history of computing through comprehensive chronological sections and an interactive quiz system.
+A web app that teaches users about the history of computing through comprehensive chronological sections and an interactive quiz system.
 
-This is a test scaffolding for basic interactive learning projects that will be built out in the future.
+This is a test scaffolding. The idea here is to create a simple web page with a few sections and a quiz system. The goal is to create a basic scaffold for future use.
 
 ## Demo Site
 
