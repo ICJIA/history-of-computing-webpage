@@ -1,0 +1,700 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>History of Computing</title>
+
+    <!-- React -->
+    <script
+      crossorigin
+      src="https://unpkg.com/react@18/umd/react.development.js"
+    ></script>
+    <script
+      crossorigin
+      src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"
+    ></script>
+
+    <style>
+      body {
+        font-family: system-ui, -apple-system, sans-serif;
+        margin: 0;
+        padding: 20px;
+        background: #f5f5f5;
+        line-height: 1.5;
+      }
+      .tabs {
+        display: flex;
+        gap: 10px;
+        margin-bottom: 20px;
+      }
+      .tab {
+        padding: 10px 20px;
+        border: none;
+        background: #e0e0e0;
+        cursor: pointer;
+        border-radius: 4px;
+      }
+      .tab.active {
+        background: #2196f3;
+        color: white;
+      }
+      .content {
+        background: white;
+        padding: 20px;
+        border-radius: 4px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      }
+      .section-title {
+        font-size: 1.5em;
+        margin-bottom: 1em;
+      }
+      .content-section {
+        white-space: normal;
+      }
+      .quiz-container {
+        padding: 20px;
+        background: white;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      }
+      .quiz-header {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 20px;
+        font-weight: 500;
+      }
+      .quiz-question {
+        font-size: 1.2em;
+        margin-bottom: 20px;
+        padding: 15px;
+        background: #f8f9fa;
+        border-radius: 4px;
+      }
+      .quiz-options {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+      }
+      .quiz-option {
+        padding: 15px;
+        border: 1px solid #dee2e6;
+        border-radius: 4px;
+        cursor: pointer;
+        background: white;
+        text-align: left;
+        transition: all 0.2s;
+      }
+      .quiz-option:hover:not(:disabled) {
+        background: #f8f9fa;
+      }
+      .quiz-option.selected {
+        background: #e3f2fd;
+        border-color: #2196f3;
+      }
+      .quiz-option.correct {
+        background: #c8e6c9;
+        border-color: #4caf50;
+      }
+      .quiz-option.incorrect {
+        background: #ffcdd2;
+        border-color: #f44336;
+      }
+      .quiz-result {
+        text-align: center;
+        padding: 30px;
+      }
+      .reset-button {
+        margin-top: 20px;
+        padding: 10px 20px;
+        background: #2196f3;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+      }
+      .content-section ul {
+        margin: 0.5em 0;
+        padding-left: 1.5em;
+      }
+      .content-section li {
+        margin: 0;
+        padding: 0;
+        line-height: 1.4;
+      }
+      .content-section h3 {
+        margin: 1.2em 0 0.3em 0;
+      }
+      .content-section p {
+        margin: 0.3em 0;
+      }
+      .content-section ul ul {
+        margin: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="root"></div>
+
+    <script>
+      // Wait for React to load
+      window.onload = function () {
+        const React = window.React;
+        const { useState } = React;
+        const { createElement: h } = React;
+        const ReactDOM = window.ReactDOM;
+
+        // Quiz questions
+        const quizQuestions = [
+          {
+            question:
+              "Which ancient mathematical tool originated in Babylon around 2400 BC?",
+            options: [
+              "Napier's Bones",
+              "Step Reckoner",
+              "Abacus",
+              "Antikythera mechanism",
+            ],
+            correct: "Abacus",
+          },
+          {
+            question: "What was FORTRAN's significance in computing history?",
+            options: [
+              "First web browser",
+              "First high-level programming language",
+              "First operating system",
+              "First computer game",
+            ],
+            correct: "First high-level programming language",
+          },
+          {
+            question:
+              "Which computer introduced the graphical user interface to mainstream consumers in 1984?",
+            options: ["IBM PC", "Apple Macintosh", "Commodore 64", "TRS-80"],
+            correct: "Apple Macintosh",
+          },
+          {
+            question:
+              "Who invented the World Wide Web at CERN between 1989-1991?",
+            options: [
+              "Steve Jobs",
+              "Bill Gates",
+              "Tim Berners-Lee",
+              "Larry Page",
+            ],
+            correct: "Tim Berners-Lee",
+          },
+          {
+            question:
+              "Which AI model demonstrated mastery of the game Go in 2016?",
+            options: ["IBM Watson", "GPT-3", "AlphaGo", "AlexNet"],
+            correct: "AlphaGo",
+          },
+        ];
+
+        const getHumorousResponse = (score) => {
+          const responses = [
+            {
+              range: [0, 1],
+              title: "Digital Dinosaur 🦖",
+              message:
+                "Looks like you're still using an abacus! But hey, at least you're not trying to debug with smoke signals...",
+            },
+            {
+              range: [2, 3],
+              title: "RAM Ranger 💫",
+              message:
+                "Not quite a tech wizard, but definitely not a noob! Keep pushing those bits and bytes!",
+            },
+            {
+              range: [4, 4],
+              title: "Circuit Sage 🔮",
+              message:
+                "Almost perfect! You could probably debug ENIAC in your sleep!",
+            },
+            {
+              range: [5, 5],
+              title: "Binary Boss 👑",
+              message:
+                "Perfect score! You're like a quantum computer - operating on a whole different level!",
+            },
+          ];
+          return responses.find(
+            (r) => score >= r.range[0] && score <= r.range[1]
+          );
+        };
+
+        const shuffleArray = (array) => {
+          const newArray = [...array];
+          for (let i = newArray.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [newArray[i], newArray[j]] = [newArray[j], newArray[i]];
+          }
+          return newArray;
+        };
+
+        // Content sections
+        const sections = {
+          earlyComputing: {
+            title: "Early Computing (Pre-1940)",
+            content: `
+              <h3>Ancient Computing Tools</h3>
+              <p><strong>The Abacus (2400 BC)</strong></p>
+              <ul>
+                ${[
+                  "Originated in Babylon",
+                  "Spread throughout ancient civilizations",
+                  "Various forms developed in China, Japan, and Rome",
+                  "Still used in parts of Asia for rapid calculations",
+                  "Different designs emerged: Chinese suanpan used 2/5 bead system",
+                  "Roman hand abacus made from metal with sliding counters",
+                  "Japanese soroban refined for base-10 calculations",
+                  "Helped develop place value number systems",
+                  "Enabled complex merchant calculations in ancient trade",
+                ]
+                  .map((item) => `<li>${item}</li>`)
+                  .join("\n")}
+              </ul>
+
+              <h3>Mathematical Foundations</h3>
+              <p><strong>Logarithms (1614)</strong></p>
+              <ul>
+                ${[
+                  "Invented by John Napier",
+                  "Revolutionized astronomical calculations",
+                  "Enabled complex multiplication via addition",
+                  "Led to the invention of the slide rule",
+                  'Published in "Mirifici Logarithmorum Canonis Descriptio"',
+                  "Reduced multiplication to addition operations",
+                  "Took Napier 20 years to complete calculations",
+                  "Henry Briggs created common logarithms (base 10)",
+                  "Used extensively in astronomy and navigation until 1970s",
+                ]
+                  .map((item) => `<li>${item}</li>`)
+                  .join("\n")}
+              </ul>
+
+              <h3>Early Mechanical Calculators</h3>
+              <p><strong>Schickard's Calculator (1623)</strong></p>
+              <ul style="margin-bottom: 1em;">
+                ${[
+                  "First mechanical calculating machine",
+                  "Could perform addition, subtraction, multiplication",
+                  "Design lost until 20th century rediscovery",
+                  "Used six-digit numbers",
+                  "Included innovative carry mechanism",
+                  "Built for astronomical calculations",
+                  "Original destroyed in fire during construction",
+                ]
+                  .map((item) => `<li>${item}</li>`)
+                  .join("\n")}
+              </ul>
+            `,
+          },
+          electronicEra: {
+            title: "Electronic Computing Era (1940-1960)",
+            content: `
+              <h3>Theoretical Foundations</h3>
+              <p><strong>Turing's Universal Machine (1936)</strong></p>
+              <ul>
+                ${[
+                  "Defined theoretical basis for computation",
+                  "Introduced concept of stored programs",
+                  "Established limits of computation",
+                  "Influenced von Neumann architecture",
+                ]
+                  .map((item) => `<li>${item}</li>`)
+                  .join("\n")}
+              </ul>
+
+              <h3>Early Electronic Computers</h3>
+              <p><strong>ABC Computer (1937-1942)</strong></p>
+              <ul>
+                ${[
+                  "First electronic digital computer",
+                  "Used binary arithmetic",
+                  "Introduced electronic switching",
+                  "Legal precedent in computer patents",
+                  "Used capacitors for memory storage",
+                  "Clock speed of 60 Hz",
+                  "Used binary arithmetic with 50 bits per word",
+                  "Regenerative memory system",
+                  "Required manual data input",
+                  "Cost approximately $5,000 to build",
+                ]
+                  .map((item) => `<li>${item}</li>`)
+                  .join("\n")}
+              </ul>
+
+              <p><strong>Colossus (1943)</strong></p>
+              <ul>
+                ${[
+                  "First programmable electronic computer",
+                  "Used for breaking German codes",
+                  "Kept secret until the 1970s",
+                  "Used 1,500 vacuum tubes",
+                ]
+                  .map((item) => `<li>${item}</li>`)
+                  .join("\n")}
+              </ul>
+
+              <h3>The ENIAC Era</h3>
+              <p><strong>ENIAC (1946)</strong></p>
+              <ul>
+                ${[
+                  "First general-purpose electronic computer",
+                  "17,468 vacuum tubes",
+                  "5 million operations per second",
+                  "Required physical rewiring for programming",
+                  "Cost $487,000 ($6.3 million in 2021)",
+                  "Physical specifications:",
+                  "- Weight: 30 tons",
+                  "- Size: 1,800 square feet",
+                  "- Power consumption: 150 kilowatts",
+                  "- 20 accumulators each storing 10 digits",
+                  "Programming details:",
+                  "- Six primary programmers (all women)",
+                  "- Programming time: weeks to months",
+                  "- Used IBM card reader for input",
+                  "- Could perform 5,000 additions per second",
+                ]
+                  .map((item) => `<li>${item}</li>`)
+                  .join("\n")}
+              </ul>
+
+              <h3>Transistor Revolution</h3>
+              // ...continue with rest of electronic era content...
+            `,
+          },
+          personalComputing: {
+            title: "Personal Computing (1970-1990)",
+            content: `
+              <h3>The Microprocessor Revolution</h3>
+              <p><strong>Intel 4004 (1971)</strong></p>
+              <ul>
+                ${[
+                  "First commercial microprocessor",
+                  "2,300 transistors",
+                  "4-bit processor",
+                  "740 KHz clock speed",
+                ]
+                  .map((item) => `<li>${item}</li>`)
+                  .join("\n")}
+              </ul>
+
+              <h3>Early Personal Computers</h3>
+              <p><strong>Altair 8800 (1975)</strong></p>
+              <ul>
+                ${[
+                  "Featured on Popular Electronics",
+                  "Sold as kit for $439",
+                  "Led to founding of Microsoft",
+                  "Created first PC hardware standard",
+                ]
+                  .map((item) => `<li>${item}</li>`)
+                  .join("\n")}
+              </ul>
+
+              <p><strong>Apple II (1977)</strong></p>
+              <ul>
+                ${[
+                  "First mass-market color computer",
+                  "Built-in BASIC programming",
+                  "Expandable architecture",
+                  "Killer app: VisiCalc spreadsheet",
+                ]
+                  .map((item) => `<li>${item}</li>`)
+                  .join("\n")}
+              </ul>
+
+              <h3>The IBM PC Era</h3>
+              <p><strong>IBM PC (1981)</strong></p>
+              <ul>
+                ${[
+                  "Open architecture design",
+                  "Created PC standard",
+                  "MS-DOS operating system",
+                  "Led to clone market",
+                ]
+                  .map((item) => `<li>${item}</li>`)
+                  .join("\n")}
+              </ul>
+
+              <h3>GUI Revolution</h3>
+              <p><strong>Xerox Alto (1973)</strong></p>
+              <ul>
+                ${[
+                  "First GUI interface",
+                  "Mouse-driven interface",
+                  "Ethernet networking",
+                  "Influenced Apple and Microsoft",
+                ]
+                  .map((item) => `<li>${item}</li>`)
+                  .join("\n")}
+              </ul>
+
+              <p><strong>Apple Macintosh (1984)</strong></p>
+              <ul>
+                ${[
+                  "First successful GUI computer",
+                  "128K memory",
+                  "Built-in display",
+                  "Revolutionary marketing",
+                ]
+                  .map((item) => `<li>${item}</li>`)
+                  .join("\n")}
+              </ul>
+            `,
+          },
+          internetAge: {
+            title: "Internet Age (1990-Present)",
+            content: `
+              <h3>Open Source Movement</h3>
+              <p><strong>GNU Project (1983-Present)</strong></p>
+              <ul style="margin-bottom: 1em;">
+                ${[
+                  "Started by Richard Stallman at MIT",
+                  "Created GPL license framework",
+                  "Developed essential Unix-like tools",
+                  "Established Free Software Foundation",
+                  "Influenced modern software licensing",
+                  "Created concept of copyleft",
+                ]
+                  .map((item) => `<li>${item}</li>`)
+                  .join("\n")}
+              </ul>
+
+              <p><strong>Linux Kernel (1991-Present)</strong></p>
+              <ul style="margin-bottom: 1em;">
+                ${[
+                  "Created by Linus Torvalds",
+                  "First release: 0.01 (10,239 lines of code)",
+                  "Current size: >30 million lines of code",
+                  "Powers 96.3% of top 1M web servers",
+                  "Dominates mobile via Android",
+                  "Major corporate contributors: Intel, Red Hat, IBM",
+                  "Development model revolutionized collaboration",
+                  "Estimated economic value: $25B+",
+                ]
+                  .map((item) => `<li>${item}</li>`)
+                  .join("\n")}
+              </ul>
+
+              <p><strong>GitHub (2008-Present)</strong></p>
+              <ul style="margin-bottom: 1em;">
+                ${[
+                  "Founded by Tom Preston-Werner, Chris Wanstrath, P.J. Hyett",
+                  "Acquired by Microsoft for $7.5B in 2018",
+                  "Hosts >200M repositories",
+                  "73M+ developers worldwide",
+                  "Introduced social coding concepts",
+                  "Key features: Pull Requests, Issues, Actions",
+                  "Transformed collaborative development",
+                  "Hosts majority of open source projects",
+                ]
+                  .map((item) => `<li>${item}</li>`)
+                  .join("\n")}
+              </ul>
+
+              <p><strong>Notable Projects</strong></p>
+              <ul style="margin-bottom: 1em;">
+                ${[
+                  "Apache Web Server (1995) - Powers 25% of websites",
+                  "Mozilla Firefox (2002) - Pioneered modern web standards",
+                  "WordPress (2003) - Powers 43% of websites",
+                  "TensorFlow (2015) - Leading AI framework",
+                  "VS Code (2015) - Most popular development environment",
+                  "React (2013) - Revolutionary UI framework",
+                ]
+                  .map((item) => `<li>${item}</li>`)
+                  .join("\n")}
+              </ul>
+            `,
+          },
+        };
+
+        // Components
+        function Tab({ title, isActive, onClick }) {
+          return h(
+            "button",
+            {
+              className: `tab ${isActive ? "active" : ""}`,
+              onClick: onClick,
+            },
+            title
+          );
+        }
+
+        function Content({ section }) {
+          return h("div", { className: "content" }, [
+            h(
+              "h2",
+              {
+                key: "title",
+                className: "section-title",
+              },
+              section.title
+            ),
+            h("div", {
+              key: "content",
+              className: "content-section",
+              dangerouslySetInnerHTML: { __html: section.content },
+            }),
+          ]);
+        }
+
+        function Quiz() {
+          const [currentQuestion, setCurrentQuestion] = useState(0);
+          const [quizScore, setQuizScore] = useState(0);
+          const [showFinalScore, setShowFinalScore] = useState(false);
+          const [answerStatus, setAnswerStatus] = useState(null);
+          const [shuffledQuestions] = useState(() =>
+            shuffleArray(quizQuestions)
+          );
+
+          const handleAnswerSelect = (answer) => {
+            const isCorrect =
+              answer === shuffledQuestions[currentQuestion].correct;
+            setAnswerStatus({ selected: answer, isCorrect });
+
+            setTimeout(() => {
+              if (isCorrect) {
+                setQuizScore((prev) => prev + 1);
+              }
+
+              if (currentQuestion < shuffledQuestions.length - 1) {
+                setCurrentQuestion((prev) => prev + 1);
+                setAnswerStatus(null);
+              } else {
+                setShowFinalScore(true);
+              }
+            }, 1500);
+          };
+
+          const resetQuiz = () => {
+            setCurrentQuestion(0);
+            setQuizScore(0);
+            setShowFinalScore(false);
+            setAnswerStatus(null);
+          };
+
+          if (showFinalScore) {
+            const result = getHumorousResponse(quizScore);
+            return h("div", { className: "quiz-result content" }, [
+              h("h3", { key: "title" }, result.title),
+              h(
+                "p",
+                { key: "score" },
+                `Score: ${quizScore} out of ${quizQuestions.length}`
+              ),
+              h("p", { key: "message" }, result.message),
+              h(
+                "button",
+                {
+                  key: "reset",
+                  className: "reset-button",
+                  onClick: resetQuiz,
+                },
+                "Try Again"
+              ),
+            ]);
+          }
+
+          return h("div", { className: "quiz-container" }, [
+            h("div", { key: "header", className: "quiz-header" }, [
+              h("span", { key: "questionIndex" }, `Question ${currentQuestion + 1} of ${shuffledQuestions.length}`),
+              h("span", { key: "scoreLabel" }, `Score: ${quizScore}`),
+            ]),
+            h(
+              "div",
+              { key: "question", className: "quiz-question" },
+              shuffledQuestions[currentQuestion].question
+            ),
+            answerStatus && !answerStatus.isCorrect
+              ? h(
+                  "div",
+                  {
+                    key: "incorrectFeedback",
+                    style: { color: "#f44336", marginBottom: "10px" },
+                  },
+                  `Incorrect answer! The correct answer is ${
+                    shuffledQuestions[currentQuestion].correct
+                  }`
+                )
+              : null,
+            h(
+              "div",
+              { key: "options", className: "quiz-options" },
+              shuffledQuestions[currentQuestion].options.map((option) =>
+                h(
+                  "button",
+                  {
+                    key: option,
+                    className: `quiz-option ${
+                      answerStatus &&
+                      !answerStatus.isCorrect &&
+                      option === shuffledQuestions[currentQuestion].correct
+                        ? "correct"
+                        : answerStatus?.selected === option
+                        ? answerStatus.isCorrect
+                          ? "correct"
+                          : "incorrect"
+                        : ""
+                    }`,
+                    onClick: () => !answerStatus && handleAnswerSelect(option),
+                    disabled: answerStatus !== null,
+                  },
+                  option
+                )
+              )
+            ),
+          ]);
+        }
+
+        function HistoryOfComputing() {
+          const [activeSection, setActiveSection] = useState("earlyComputing");
+
+          return h("div", null, [
+            h("h1", { key: "maintitle" }, "History of Computing"),
+
+            h(
+              "div",
+              {
+                key: "tabs",
+                className: "tabs",
+              },
+              [
+                ...Object.entries(sections).map(([key, section]) =>
+                  h(Tab, {
+                    key,
+                    title: section.title.split("(")[0].trim(),
+                    isActive: activeSection === key,
+                    onClick: () => setActiveSection(key),
+                  })
+                ),
+                h(Tab, {
+                  key: "quiz",
+                  title: "Test Your Knowledge",
+                  isActive: activeSection === "quiz",
+                  onClick: () => setActiveSection("quiz"),
+                }),
+              ]
+            ),
+
+            activeSection === "quiz"
+              ? h(Quiz, { key: "quiz-content" })
+              : h(Content, {
+                  key: "content",
+                  section: sections[activeSection],
+                }),
+          ]);
+        }
+
+        // Render the app
+        const container = document.getElementById("root");
+        const root = ReactDOM.createRoot(container);
+        root.render(h(HistoryOfComputing));
+      };
+    </script>
+  </body>
+</html>
